@@ -14,4 +14,4 @@ pip install -e .
 
 ## Development in colab
 To develop in colab, I recommend to mount google drive in the notebook and on your laptop and import the project from drive.
-
+Copy [this colab notebook as a start](https://colab.research.google.com/drive/1iHW0bYiO5HjeguGPckiuPyPjGTcNvS0u?usp=sharing).
