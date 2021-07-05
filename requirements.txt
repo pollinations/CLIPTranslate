@@ -1,0 +1,6 @@
+git+https://github.com/nielsrolf/AudioCLIP
+git+https://github.com/nielsrolf/siren-pytorch
+pytorch-ignite
+visdom
+ftfy
+librosa
