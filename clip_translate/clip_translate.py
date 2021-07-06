@@ -49,7 +49,7 @@ class AudioImagine():
 
     def augment_audio(self, audio, min_seconds=1, max_seconds=4):
         # random crops
-        audio = self.to_audio_shape(audio)
+        audio = to_audio_shape(audio)
         seconds = np.random.uniform(min_seconds, max_seconds)
         frames = int(seconds * sample_rate)
         cutoff = audio.shape[1] - frames
