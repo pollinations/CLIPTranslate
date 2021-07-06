@@ -1,7 +1,7 @@
 import torch
 from audioclip import AudioCLIP, sample_rate
 import numpy as np
-from siren_pytorch import SirenNet#, SirenWrapperNDim
+from siren_pytorch import SirenNet, SirenWrapperNDim
 from torch import nn
 from clip_translate.utils import play, to_audio_shape
 from matplotlib import pyplot as plt
