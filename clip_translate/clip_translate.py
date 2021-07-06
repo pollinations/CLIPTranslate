@@ -52,10 +52,10 @@ class AudioImagine():
         audio = to_audio_shape(audio)
         seconds = np.random.uniform(min_seconds, max_seconds)
         frames = int(seconds * sample_rate)
-        cutoff = audio.shape[1] - frames
+        cutoff = audio.shape[2] - frames
         cutoff_start = np.random.randint(0, cutoff)
         cutoff_end = cutoff - cutoff_start
-        audio = audio[:, cutoff_start:-cutoff_end]
+        audio = audio[:,:, cutoff_start:-cutoff_end]
 
         if np.random.rand() > 0.5:
             audio = - audio
