@@ -124,12 +124,12 @@ def get_siren_decoder(output_shape, latent_dim=1024):
     return decoder
 
 
-def fit_siren(imagine, siren, latent=None, steps=2000):
+def fit_siren(imagine, siren, latent=None, steps=2000, augment=True):
     optim = torch.optim.Adam(lr=1e-4, params=siren.parameters())
     steps_till_summary = 100
     for step in range(steps):
         model_output = siren(latent=latent) 
-        loss = -1 * imagine.get_score(model_output, augment=True)
+        loss = -1 * imagine.get_score(model_output, augment=augment)
         optim.zero_grad()
         loss.backward()
         optim.step()
