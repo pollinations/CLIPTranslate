@@ -75,7 +75,7 @@ class AudioImagine():
         audio = to_audio_shape(audio)
 
         #audio = audio * 32768.0
-        print("encoding audio",audio.shape)
+        #print("encoding audio",audio.shape)
         audio_enc = self.perceptor.encode_audio(audio)
         audio_enc = audio_enc / audio_enc.norm(dim=-1, keepdim=True)
         return audio_enc

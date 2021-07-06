@@ -47,7 +47,6 @@ def to_audio_shape(audio):
     if isinstance(audio, np.ndarray):
         audio = torch.tensor(audio)
     audio = audio.squeeze().reshape((1,1,-1))
-    print("audio shape",audio.shape)
     # if len(audio.shape) == 3:
     #     audio = audio[:, :, 0]
     # if len(audio.shape) == 1:
