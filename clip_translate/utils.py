@@ -6,9 +6,7 @@ from matplotlib import image
 import numpy as np
 import torch
 from PIL import Image
-
-
-rate = 22050
+from AudioCLIP import sample_rate
 
 
 def load_img(path, size=224):
@@ -25,7 +23,7 @@ def imshow(img):
 
 
 def load_audio(filename):
-    data, _ = librosa.load(filename, sr=rate)
+    data, _ = librosa.load(filename, sr=sample_rate)
     return torch.tensor(data.data).reshape(-1, 1).cuda()
 
 
@@ -33,12 +31,12 @@ def play(audio):
     if not isinstance(audio, np.ndarray):
         audio = audio.cpu().detach().numpy()
     audio = audio.squeeze()
-    display(Audio(audio, rate=rate))
+    display(Audio(audio, rate=sample_rate))
     hop_length = 1024
     fig, ax = plt.subplots(nrows=1, ncols=1, sharex=True)
     D = librosa.amplitude_to_db(np.abs(librosa.stft(audio, hop_length=hop_length)),
                                 ref=np.max)
-    specplot = librosa.display.specshow(D, y_axis='log', sr=rate, hop_length=hop_length,
+    specplot = librosa.display.specshow(D, y_axis='log', sr=sample_rate, hop_length=hop_length,
                                         x_axis='time', ax=ax)
     ax.set(title='Log-frequency power spectrogram')
     ax.label_outer()

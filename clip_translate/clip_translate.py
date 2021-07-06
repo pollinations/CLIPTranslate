@@ -1,13 +1,11 @@
 import torch
-from audioclip import AudioCLIP
+from audioclip import AudioCLIP, sample_rate
 import numpy as np
 from siren_pytorch import SirenNet, SirenWrapperNDim
 from torch import nn
 from clip_translate.utils import play
 from matplotlib import pyplot as plt
 
-
-rate = 22050  # required by AudioCLIP
 
 
 def get_perceptor(pretrained):
@@ -52,7 +50,7 @@ class AudioImagine():
         # random crops
         audio = self.to_audio_shape(audio)
         seconds = np.random.uniform(min_seconds, max_seconds)
-        frames = int(seconds * rate)
+        frames = int(seconds * sample_rate)
         cutoff = audio.shape[1] - frames
         cutoff_start = np.random.randint(0, cutoff)
         cutoff_end = cutoff - cutoff_start
