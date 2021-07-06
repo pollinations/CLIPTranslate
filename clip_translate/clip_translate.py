@@ -3,12 +3,13 @@ from audioclip import AudioCLIP, sample_rate
 import numpy as np
 from siren_pytorch import SirenNet, SirenWrapperNDim
 from torch import nn
-from clip_translate.utils import play
+from clip_translate.utils import play, to_audio_shape
 from matplotlib import pyplot as plt
 
 
 
 def get_perceptor(pretrained):
+    # why do we do this eval and so on? in the example notebook it is not necessary
     torch.set_grad_enabled(False)
     perceptor = AudioCLIP(pretrained=pretrained).cuda()
     perceptor.eval()
@@ -64,23 +65,17 @@ class AudioImagine():
 
         return audio
 
-    def to_audio_shape(self, audio):
-        audio = audio.squeeze()[None]
-        # if len(audio.shape) == 3:
-        #     audio = audio[:, :, 0]
-        # if len(audio.shape) == 1:
-        #     audio = audio[None]
-        if isinstance(audio, np.ndarray):
-            audio = torch.tensor(audio)
-        return audio
+
 
     def encode_audio(self, audio, augment=False):
         if augment:
             audio = self.augment_audio(audio)
-        else:
-            audio = self.to_audio_shape(audio)
+        #else:
+        
+        audio = to_audio_shape(audio)
 
-        audio = audio * 32768.0
+        #audio = audio * 32768.0
+        print("encoding audio",audio.shape)
         audio_enc = self.perceptor.encode_audio(audio)
         audio_enc = audio_enc / audio_enc.norm(dim=-1, keepdim=True)
         return audio_enc
@@ -131,7 +126,7 @@ def get_siren_decoder(output_shape, latent_dim=1024):
 
 def fit_siren(imagine, siren, latent=None, steps=2000):
     optim = torch.optim.Adam(lr=1e-4, params=siren.parameters())
-    steps_till_summary = 1000
+    steps_till_summary = 100
     for step in range(steps):
         model_output = siren(latent=latent) 
         loss = -1 * imagine.get_score(model_output, augment=True)
