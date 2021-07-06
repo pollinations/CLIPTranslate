@@ -6,7 +6,7 @@ from matplotlib import image
 import numpy as np
 import torch
 from PIL import Image
-from AudioCLIP import sample_rate
+from audioclip import sample_rate
 
 
 def load_img(path, size=224):
