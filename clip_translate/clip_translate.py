@@ -1,5 +1,5 @@
 import torch
-from model import AudioCLIP
+from audioclip import AudioCLIP
 import numpy as np
 from siren_pytorch import SirenNet, SirenWrapperNDim
 from torch import nn
